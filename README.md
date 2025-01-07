@@ -14,12 +14,12 @@
 
 1. **克隆仓库**：
    ```bash
-   git clone https://github.com/your-username/your-repository.git
-   ```
+   git clone https://github.com/zzleeeeon/eye-controlled-model.git 
+
 
 2. **导航到项目目录**：
    ```bash
-   cd your-repository
+   cd eye-controlled-model
    ```
 
 3. **打开`index.html`**：
