@@ -42,6 +42,15 @@
 <body>
     <video id="video" autoplay></video>
     <button id="fullscreen-button">全屏显示</button>
+    <div style="position: absolute; top: 50px; right: 10px;">
+        <span id="fov-value">75</span>
+        <input type="range" id="fov-slider" min="50" max="135" value="75" style="vertical-align: middle;">
+        <span>视场角</span>
+    </div>
+    <div style="position: absolute; top: 90px; right: 10px;">
+        <input type="checkbox" id="animation-toggle" checked style="vertical-align: middle;">
+        <span>动画</span>
+    </div>
     <script>
         // 创建场景、相机、渲染器
         const scene = new THREE.Scene();
@@ -225,7 +234,9 @@
         const clock = new THREE.Clock();
         function animate() {
             requestAnimationFrame(animate);
-            if (mixer) mixer.update(clock.getDelta()); // 更新动画
+            if (mixer && document.getElementById('animation-toggle').checked) {
+                mixer.update(clock.getDelta()); // 更新动画
+            }
             renderer.render(scene, camera);
         }
         animate();
@@ -265,6 +276,16 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
+        });
+
+        // 监听滑动条变化事件
+        const fovSlider = document.getElementById('fov-slider');
+        const fovValue = document.getElementById('fov-value');
+        fovSlider.addEventListener('input', (event) => {
+            const fov = event.target.value;
+            camera.fov = fov;
+            camera.updateProjectionMatrix();
+            fovValue.textContent = fov; // 更新当前数值显示
         });
 
     </script>
