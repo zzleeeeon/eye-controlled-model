@@ -189,7 +189,7 @@
 
         // 处理识别结果
         function onResults(results) {
-            if (results.multiFaceLandmarks) {
+            if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
                 const landmarks = results.multiFaceLandmarks[0];
                 const leftEye = landmarks[159]; // 左眼的一个特定点
                 const rightEye = landmarks[386]; // 右眼的一个特定点
@@ -215,7 +215,9 @@
                     carModel.getWorldPosition(carPosition);
                     camera.lookAt(carPosition);
                 }
-
+            } else {
+                console.warn("No face landmarks detected.");
+                // 如果没有检测到人脸，保持相机在最后一个已知位置或设置为默认位置
             }
         }
 
